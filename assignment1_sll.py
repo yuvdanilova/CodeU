@@ -1,5 +1,6 @@
-# Uses python3
+#!/usr/bin/env python3
 import sys
+import unittest
 
 class Node:
 
@@ -40,15 +41,38 @@ class SinglyLinkedList:
             return kth_el.val
 
 
+class TestSLL(unittest.TestCase):
+
+    def test_simple(self):
+        ssl_elements = [0, 1, 2, 3, 4, 5, 6]
+        ssl = SinglyLinkedList()
+        for el in ssl_elements:
+            ssl.append(el)
+        for i in range(len(ssl_elements)):
+            self.assertEqual(ssl.kth_from_end(i), i)
+
+    def test_mixed(self):
+        ssl_elements = [0, 'fhf', 23.5, 'compda']
+        ssl = SinglyLinkedList()
+        for el in ssl_elements:
+            ssl.append(el)
+        for i in range(len(ssl_elements)):
+            self.assertEqual(ssl.kth_from_end(i), ssl_elements[i])
+
+    def test_kth_existance(self):
+        # check that calling for k larger than the lenght of the list throws an exception
+        ssl_elements = [0, 1, 2, 3, 4, 5, 6]
+        ssl = SinglyLinkedList()
+        for el in ssl_elements:
+            ssl.append(el)
+        with self.assertRaises(RuntimeError):
+            ssl.kth_from_end(7)
+
+    def test_empty(self):
+        ssl = SinglyLinkedList()
+        with self.assertRaises(RuntimeError):
+            self.assertRaises(ssl.kth_from_end(0))
+
+
 if __name__ == '__main__':
-    input = sys.stdin.read()
-    *ssl_elements, k = input.split()
-
-    ssl = SinglyLinkedList()
-    for el in ssl_elements:
-        ssl.append(el)
-
-    if not k.isdigit():
-        raise RuntimeError('k is not a digit: {0}'.format(k))
-
-    print(ssl.kth_from_end(int(k)))
+    unittest.main()
