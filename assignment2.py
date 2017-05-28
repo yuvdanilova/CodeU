@@ -137,7 +137,7 @@ class BinaryTree:
             return LA
 
 
-class TestSLL(unittest.TestCase):
+class TestBinaryTree(unittest.TestCase):
 
     def test_print_ancestors(self):
         """
