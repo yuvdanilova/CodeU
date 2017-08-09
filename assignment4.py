@@ -104,62 +104,59 @@ class IslandMap():
         return counter
 
 
-T = True
-F = False
-
 class TestCountIslands(unittest.TestCase):
 
     def test_empty_case(self):
-        isl_map = [[F,F,F],[F,F,F],[F,F,F]]
+        isl_map = [[0,0,0],[0,0,0],[0,0,0]]
         im = IslandMap(3, 3, isl_map)
         self.assertEqual(im.countIslands(), 0)
         self.assertEqual(im.countIslandsRecursive(), 0)
     
     def test_full_case(self):
-        isl_map = [[T,T,T],[T,T,T],[T,T,T]]
+        isl_map = [[1,1,1],[1,1,1],[1,1,1]]
         im = IslandMap(3, 3, isl_map)
         self.assertEqual(im.countIslands(), 1)
         self.assertEqual(im.countIslandsRecursive(), 1)
 
     def test_distinct_islands(self):
-        isl_map = [[T,F,F],[F,T,F],[F,F,T]]
+        isl_map = [[1,0,0],[0,1,0],[0,0,1]]
         im = IslandMap(3, 3, isl_map)
         self.assertEqual(im.countIslands(), 3)
         self.assertEqual(im.countIslandsRecursive(), 3)
 
     def test_doughnut(self):
-        isl_map = [[T,T,T],[T,F,T],[T,T,T]]
+        isl_map = [[1,1,1],[1,0,1],[1,1,1]]
         im = IslandMap(3, 3, isl_map)
         self.assertEqual(im.countIslands(), 1)
         self.assertEqual(im.countIslandsRecursive(), 1)     
 
     def test_complicated_form(self):
-        isl_map = [[F,F,T,F,T,T,T,T,T,T,F,F], [T,T,T,T,T,T,F,F,T,F,F,F]]
+        isl_map = [[0,0,1,0,1,1,1,1,1,1,0,0], [1,1,1,1,1,1,0,0,1,0,0,0]]
         im = IslandMap(2, 12, isl_map)
         self.assertEqual(im.countIslands(), 1)
         self.assertEqual(im.countIslandsRecursive(), 1)   
 
     def test_disjoint_complicated(self):
         isl_map = [
-            [F,F,T,F,T,T,T,T,T,T,F,F], # rows 0 & 1 have one island
-            [T,T,T,T,T,T,F,F,T,F,F,F], 
-            [F,F,F,F,F,F,F,F,F,F,F,F], # empty line
-            [F,F,F,T,T,T,F,F,F,T,F,T], # row 3 has 3 islands
-            [F,F,F,F,F,F,F,F,F,F,F,F], # empty row
-            [T,T,T,T,T,T,T,T,T,T,T,T]] # row 5 has 1 island
+            [0,0,1,0,1,1,1,1,1,1,0,0], # rows 0 & 1 have one island
+            [1,1,1,1,1,1,0,0,1,0,0,0], 
+            [0,0,0,0,0,0,0,0,0,0,0,0], # empty line
+            [0,0,0,1,1,1,0,0,0,1,0,1], # row 3 has 3 islands
+            [0,0,0,0,0,0,0,0,0,0,0,0], # empty row
+            [1,1,1,1,1,1,1,1,1,1,1,1]] # row 5 has 1 island
         im = IslandMap(6, 12, isl_map)
         self.assertEqual(im.countIslands(), 5)
         self.assertEqual(im.countIslandsRecursive(), 5)
 
     def test_doughnut_in_doughnut(self):
         isl_map = [
-            [T,T,T,T,T,T,T,T,T,T,T,T],
-            [T,F,F,F,F,F,F,F,F,F,F,T], 
-            [T,F,T,T,T,T,T,T,T,T,F,T],
-            [T,F,T,F,F,F,F,F,F,T,F,T],
-            [T,F,T,T,T,T,T,T,T,T,F,T],
-            [T,F,F,F,F,F,F,F,F,F,F,T], 
-            [T,T,T,T,T,T,T,T,T,T,T,T]]
+            [1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1], 
+            [1,0,1,1,1,1,1,1,1,1,0,1],
+            [1,0,1,0,0,0,0,0,0,1,0,1],
+            [1,0,1,1,1,1,1,1,1,1,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,1], 
+            [1,1,1,1,1,1,1,1,1,1,1,1]]
         im = IslandMap(7, 12, isl_map)
         self.assertEqual(im.countIslands(), 2)
         self.assertEqual(im.countIslandsRecursive(), 2)
