@@ -10,6 +10,7 @@ class Graph():
         self.v_stocks = set()
 
     def add_edge(self, v_from, v_to):
+        """ Adds an edge to the graph and corresponding vertices to the sets of sources/stocks """
         self.v_sources.add(v_from)
         self.v_stocks.add(v_to)
         if v_from in self.edges:
@@ -18,6 +19,7 @@ class Graph():
             self.edges[v_from] = [v_to,]
 
     def add_vertex(self, v):
+        """ Add a vertex to the set of source vertices (suppose that a distinct vertex is a source) """
         self.v_sources.add(v)
 
     def top_sort(self):
@@ -78,6 +80,10 @@ def parse_alphabet(words):
 class TestAlphabet(unittest.TestCase):
 
     def check_order(self, alphabet, let1, let2):
+        """ 
+        Auxiliary function that checks that one letter comes before another
+        one in a given alphabet. Assumes alphabet is a List.
+        """
         return alphabet.index(let1) < alphabet.index(let2)
 
     def check_unique(self, alphabet):
